@@ -11,6 +11,7 @@ function GameScene:ctor()
     self:addChild(self.batch)
     self:loadTitle()
     self:loadBird()
+    self:loadStartButton()
 end
 
 function GameScene:loadBackground()
@@ -50,6 +51,14 @@ function GameScene:loadBird()
     self.bird:flap()
     self.bird:flyUpAndDown()
     self.batch:addChild(self.bird)
+end
+
+function GameScene:loadStartButton()
+    self.button = display.newSprite('#start.png')
+    self.button:setPosition(display.width - 3 * display.width / 4, 170)
+    self.button:setScaleX(0.5)
+    self.button:setScaleY(0.5)
+    self.batch:addChild(self.button)
 end
 
 return GameScene
