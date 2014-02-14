@@ -1,3 +1,10 @@
+DEBUG = 1
+DEBUG_FPS = true
+
+CONFIG = {
+    SCREEN_AUTOSCALE = "FIXED_WIDTH"
+}
+
 TEXTURES_IMAGE_FILENAME = 'flappy_packer.png'
 
 TEXTURES_DATA_FILENAME = 'flappy_packer.plist'
