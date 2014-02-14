@@ -5,8 +5,10 @@ CONFIG = {
     SCREEN_AUTOSCALE = "FIXED_WIDTH"
 }
 
-TEXTURES_IMAGE_FILENAME = 'flappy_packer.png'
 
+RESOURCE_DIR = 'res/'
+
+TEXTURES_IMAGE_FILENAME = 'flappy_packer.png'
 TEXTURES_DATA_FILENAME = 'flappy_packer.plist'
 FLAPPY_FRAME_DATA_FILENAME = 'flappy_frame.plist'
 
