@@ -38,8 +38,9 @@ end
 function GameScene:loadTitle()
     local title = display.newSprite('#flappybird.png')
     title:setPosition(display.width / 2, display.height - display.height / 3)
-    title:setScaleX(0.5)
-    title:setScaleY(0.5)
+    local ratio = (display.width * 2 / 3) / title:getContentSize().width
+    title:setScaleX(ratio)
+    title:setScaleY(ratio)
     self.batch:addChild(title)
 end
 
