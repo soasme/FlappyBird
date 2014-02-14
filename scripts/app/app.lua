@@ -3,23 +3,19 @@ require('framework.init')
 require('framework.shortcodes')
 require('framework.cc.init')
 
--- app
+-- App
 require('config')
 
-local app = class('app', cc.mvc.AppBase)
+local App = class('App', cc.mvc.AppBase)
 
-function app:ctor()
-    app.super.ctor(self)
+function App:ctor()
+    App.super.ctor(self)
     self.objects_ = {}
 end
 
-function app:run()
-    self:loadResource()
-    self:runGame()
-end
+function App:run()
 
-function app:loadResource()
-    CCFileUtils.sharedFileUtils.addSearchPath(
+    CCFileUtils:sharedFileUtils():addSearchPath(
         RESOURCE_DIR
     )
 
@@ -27,10 +23,8 @@ function app:loadResource()
         TEXTURES_DATA_FILENAME,
         TEXTURES_IMAGE_FILENAME
     )
-end
 
-function app:runGame()
     self:enterScene("GameScene", nil, "fade", 0.6, display.COLOR_WHITE)
 end
 
-return app
+return App

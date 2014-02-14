@@ -5,4 +5,4 @@ function __G__TRACEBACK__(message)
     print("-------------------------------------------")
 end
 
-require("app").new().run()
+require("app.App").new():run()
