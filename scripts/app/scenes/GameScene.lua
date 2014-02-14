@@ -49,6 +49,12 @@ function GameScene:loadScore()
 end
 
 function GameScene:loadReady()
+    self.getReady = display.newSprite('#getready.png')
+    self.getReady:setPosition(display.width / 2, display.height * 2 / 3)
+    local ratio = (display.width * 2 / 3) / self.getReady:getContentSize().width
+    self.getReady:setScaleX(ratio)
+    self.getReady:setScaleY(ratio)
+    self.batch:addChild(self.getReady)
 end
 
 function GameScene:loadTapTip()
