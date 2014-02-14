@@ -1,3 +1,4 @@
+local Bird = import('..views.bird')
 
 local GameScene = class('GameScene', function()
     return display.newScene('GameScene')
@@ -6,7 +7,10 @@ end)
 function GameScene:ctor()
     self:loadBackground()
     self:loadGround()
+    self.batch = display.newBatchNode(TEXTURES_IMAGE_FILENAME)
+    self:addChild(self.batch)
     self:loadTitle()
+    self:loadBird()
 end
 
 function GameScene:loadBackground()
@@ -32,13 +36,18 @@ function GameScene:moveGround()
 end
 
 function GameScene:loadTitle()
-    self.batch = display.newBatchNode(TEXTURES_IMAGE_FILENAME)
-    self:addChild(self.batch)
     local title = display.newSprite('#flappybird.png')
     title:setPosition(display.width / 2, display.height - display.height / 3)
     title:setScaleX(0.5)
     title:setScaleY(0.5)
     self.batch:addChild(title)
+end
+
+function GameScene:loadBird()
+    self.bird = Bird.new()
+    self.bird:setPosition(display.width / 2, display.height / 2)
+    self.bird:flap()
+    self.batch:addChild(self.bird)
 end
 
 return GameScene
