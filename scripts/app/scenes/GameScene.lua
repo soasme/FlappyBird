@@ -24,16 +24,6 @@ end
 
 
 function GameScene:run()
-    if self.state == State.ready then
-        self.layerTouch = display.newLayer()
-        self.layerTouch:addTouchEventListener(function(event, x, y)
-            return self:onTap(event, x, y)
-        end, true)
-        self.layerTouch:setTouchEnabled(true)
-        self:addChild(self.layerTouch)
-    elseif self.state == State.flying then
-    elseif self.state == State.dead then
-    end
 end
 
 function GameScene:loadResource()
@@ -41,6 +31,13 @@ function GameScene:loadResource()
     self:loadReady()
     self:loadTapTip()
     self:loadBird()
+
+    self.layerTouch = display.newLayer()
+    self.layerTouch:addTouchEventListener(function(event, x, y)
+        return self:onTap(event, x, y)
+    end, true)
+    self.layerTouch:setTouchEnabled(true)
+    self:addChild(self.layerTouch)
 end
 
 function GameScene:resetResource()
@@ -115,8 +112,20 @@ end
 function GameScene:onEnter()
 end
 
+function GameScene:removeReadyChildren()
+    self.batch:removeChild(self.tapTip)
+    self.batch:removeChild(self.getReady)
+end
+
 function GameScene:onTap(event, x, y)
     if event == 'began' then
+        if self.state == State.ready then
+            self:removeReadyChildren()
+            self.state = State.flying
+            self.bird:fly()
+        elseif self.state == State.flying then
+            self.bird:fly()
+        end
     end
 end
 
