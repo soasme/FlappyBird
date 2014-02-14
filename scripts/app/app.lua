@@ -15,7 +15,7 @@ end
 
 function App:run()
     self:loadResource()
-    self:enterGameScene()
+    self:enterMenuScene()
 end
 
 function App:loadResource()
@@ -29,8 +29,8 @@ function App:loadResource()
     )
 end
 
-function App:enterGameScene()
-    self:enterScene("GameScene", nil, "fade", 0.6, display.COLOR_WHITE)
+function App:enterMenuScene()
+    self:enterScene("MenuScene", nil, "fade", 0.6, display.COLOR_WHITE)
 end
 
 return App

@@ -1,10 +1,10 @@
 local Bird = import('..views.bird')
 
-local GameScene = class('GameScene', function()
-    return display.newScene('GameScene')
+local MenuScene = class('MenuScene', function()
+    return display.newScene('MenuScene')
 end)
 
-function GameScene:ctor()
+function MenuScene:ctor()
     self:loadBackground()
     self:loadGround()
     self.batch = display.newBatchNode(TEXTURES_IMAGE_FILENAME)
@@ -15,18 +15,18 @@ function GameScene:ctor()
     self:loadGradeButton()
 end
 
-function GameScene:loadBackground()
+function MenuScene:loadBackground()
     self.bg = display.newSprite(BACKGROUND_FILENAME, display.cx, display.cy)
     self:addChild(self.bg)
 end
 
-function GameScene:loadGround()
+function MenuScene:loadGround()
     self.ground = display.newSprite(GROUND_FILENAME, display.cx, display.bottom)
     self:addChild(self.ground)
     self:moveGround()
 end
 
-function GameScene:moveGround()
+function MenuScene:moveGround()
     self.ground:runAction(
         CCRepeatForever:create(
             transition.sequence({
@@ -37,7 +37,7 @@ function GameScene:moveGround()
     )
 end
 
-function GameScene:loadTitle()
+function MenuScene:loadTitle()
     local title = display.newSprite('#flappybird.png')
     title:setPosition(display.width / 2, display.height - display.height / 3)
     local ratio = (display.width * 2 / 3) / title:getContentSize().width
@@ -46,7 +46,7 @@ function GameScene:loadTitle()
     self.batch:addChild(title)
 end
 
-function GameScene:loadBird()
+function MenuScene:loadBird()
     self.bird = Bird.new()
     self.bird:setPosition(display.width / 2, display.height / 2)
     self.bird:flap()
@@ -54,7 +54,7 @@ function GameScene:loadBird()
     self.batch:addChild(self.bird)
 end
 
-function GameScene:loadStartButton()
+function MenuScene:loadStartButton()
     local button = display.newSprite('#start.png')
     button:setPosition(display.width - 3 * display.width / 4, 170)
     button:setScaleX(0.5)
@@ -62,11 +62,11 @@ function GameScene:loadStartButton()
     self.batch:addChild(button)
 end
 
-function GameScene:loadGradeButton()
+function MenuScene:loadGradeButton()
     local button = display.newSprite('#grade.png')
     button:setPosition(display.width - 1 * display.width / 4, 170)
     button:setScaleX(0.5)
     button:setScaleY(0.5)
     self.batch:addChild(button)
 end
-return GameScene
+return MenuScene
