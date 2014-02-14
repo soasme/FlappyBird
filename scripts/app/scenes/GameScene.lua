@@ -70,7 +70,7 @@ function GameScene:loadNextLoopButton()
     end)
 end
 
-function MenuScene:loadGradeButton()
+function GameScene:loadGradeButton()
     -- TODO refactor this button. It's the same as MenuScene
     local button = display.newSprite('#grade.png')
     button:setPosition(display.width - 1 * display.width / 4, 170)
