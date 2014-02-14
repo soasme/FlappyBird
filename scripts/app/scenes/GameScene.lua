@@ -24,9 +24,15 @@ end
 
 
 function GameScene:run()
-    if self.state == State.start then
-    elseif self.state == State.running then
-    elseif self.state == State.stop then
+    if self.state == State.ready then
+        self.layerTouch = display.newLayer()
+        self.layerTouch:addTouchEventListener(function(event, x, y)
+            return self:onTap(event, x, y)
+        end, true)
+        self.layerTouch:setTouchEnabled(true)
+        self:addChild(self.layerTouch)
+    elseif self.state == State.flying then
+    elseif self.state == State.dead then
     end
 end
 
@@ -70,6 +76,7 @@ function GameScene:loadBird()
     self.bird:setScaleX(0.5)
     self.bird:setScaleY(0.5)
     self.bird:setPosition(display.width / 3, display.height / 2)
+    self.bird:flap()
     self.batch:addChild(self.bird)
 end
 
@@ -108,7 +115,9 @@ end
 function GameScene:onEnter()
 end
 
-function GameScene:onTap()
+function GameScene:onTap(event, x, y)
+    if event == 'began' then
+    end
 end
 
 return GameScene
