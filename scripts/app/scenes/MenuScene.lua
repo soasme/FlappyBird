@@ -45,6 +45,10 @@ function MenuScene:loadStartButton()
     button:setScaleX(0.5)
     button:setScaleY(0.5)
     self.batch:addChild(button)
+    button:setTouchEnabled(true)
+    button:addTouchEventListener(function(event, x, y)
+        app:enterGameScene()
+    end)
 end
 
 function MenuScene:loadGradeButton()
