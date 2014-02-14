@@ -5,7 +5,8 @@ end)
 
 function Bird:flap()
     self.frames = display.newFrames("bird%d.png", 1, 3, true)
-    self.animation = display.newAnimation(self.frames, 0.5 / 3)
+    self.animation = display.newAnimation(self.frames, 0.3 / 3)
+    display.setAnimationCache("flap", self.animation)
     self:playAnimationForever(self.animation)
 end
 
@@ -29,6 +30,7 @@ function Bird:fly()
     local time = y / display.height
 
     self:stopAllActions()
+    self:flap()
     self:runAction(
         transition.sequence({
             CCSpawn:createWithTwoActions(
