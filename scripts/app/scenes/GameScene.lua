@@ -23,8 +23,8 @@ function GameScene:moveGround()
     self.ground:runAction(
         CCRepeatForever:create(
             transition.sequence({
-                CCMoveTo:create(0.6, ccp(100, 0)),
-                CCMoveTo:create(0, ccp(400, 0)),
+                CCMoveTo:create(0.5, ccp(display.cx - 60, display.bottom)),
+                CCMoveTo:create(0, ccp(display.cx, display.bottom))
             })
         )
     )
