@@ -1,4 +1,5 @@
 local Bird = import('..views.bird')
+local Background = import('..views.background')
 
 local MenuScene = class('MenuScene', function()
     return display.newScene('MenuScene')
@@ -6,9 +7,10 @@ end)
 
 function MenuScene:ctor()
     self:loadBackground()
-    self:loadGround()
+
     self.batch = display.newBatchNode(TEXTURES_IMAGE_FILENAME)
     self:addChild(self.batch)
+
     self:loadTitle()
     self:loadBird()
     self:loadStartButton()
@@ -16,25 +18,8 @@ function MenuScene:ctor()
 end
 
 function MenuScene:loadBackground()
-    self.bg = display.newSprite(BACKGROUND_FILENAME, display.cx, display.cy)
-    self:addChild(self.bg)
-end
-
-function MenuScene:loadGround()
-    self.ground = display.newSprite(GROUND_FILENAME, display.cx, display.bottom)
-    self:addChild(self.ground)
-    self:moveGround()
-end
-
-function MenuScene:moveGround()
-    self.ground:runAction(
-        CCRepeatForever:create(
-            transition.sequence({
-                CCMoveTo:create(0.5, ccp(display.cx - 60, display.bottom)),
-                CCMoveTo:create(0, ccp(display.cx, display.bottom))
-            })
-        )
-    )
+    local background = Background.new()
+    self:addChild(background)
 end
 
 function MenuScene:loadTitle()
