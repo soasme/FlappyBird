@@ -22,7 +22,7 @@ function Background:moveGround()
     self.ground:runAction(
         CCRepeatForever:create(
             transition.sequence({
-                CCMoveTo:create(0.5, ccp(display.cx - 60, display.bottom)),
+                CCMoveTo:create(0.3, ccp(display.cx - 60, display.bottom)),
                 CCMoveTo:create(0, ccp(display.cx, display.bottom))
             })
         )
