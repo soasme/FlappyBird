@@ -58,6 +58,11 @@ function GameScene:loadReady()
 end
 
 function GameScene:loadTapTip()
+    self.tapTip = display.newSprite('#click.png')
+    self.tapTip:setPosition(display.width / 2, display.height / 2)
+    self.tapTip:setScaleX(0.5)
+    self.tapTip:setScaleY(0.5)
+    self.batch:addChild(self.tapTip)
 end
 
 function GameScene:loadBird()
