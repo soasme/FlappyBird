@@ -66,6 +66,11 @@ function GameScene:loadTapTip()
 end
 
 function GameScene:loadBird()
+    self.bird = Bird.new()
+    self.bird:setScaleX(0.5)
+    self.bird:setScaleY(0.5)
+    self.bird:setPosition(display.width / 3, display.height / 2)
+    self.batch:addChild(self.bird)
 end
 
 function GameScene:loadNextLoopButton()
