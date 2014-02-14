@@ -12,6 +12,7 @@ function GameScene:ctor()
     self:loadTitle()
     self:loadBird()
     self:loadStartButton()
+    self:loadGradeButton()
 end
 
 function GameScene:loadBackground()
@@ -54,11 +55,18 @@ function GameScene:loadBird()
 end
 
 function GameScene:loadStartButton()
-    self.button = display.newSprite('#start.png')
-    self.button:setPosition(display.width - 3 * display.width / 4, 170)
-    self.button:setScaleX(0.5)
-    self.button:setScaleY(0.5)
-    self.batch:addChild(self.button)
+    local button = display.newSprite('#start.png')
+    button:setPosition(display.width - 3 * display.width / 4, 170)
+    button:setScaleX(0.5)
+    button:setScaleY(0.5)
+    self.batch:addChild(button)
 end
 
+function GameScene:loadGradeButton()
+    local button = display.newSprite('#grade.png')
+    button:setPosition(display.width - 1 * display.width / 4, 170)
+    button:setScaleX(0.5)
+    button:setScaleY(0.5)
+    self.batch:addChild(button)
+end
 return GameScene
