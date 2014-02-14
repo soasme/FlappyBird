@@ -48,6 +48,7 @@ function GameScene:loadBird()
     self.bird = Bird.new()
     self.bird:setPosition(display.width / 2, display.height / 2)
     self.bird:flap()
+    self.bird:flyUpAndDown()
     self.batch:addChild(self.bird)
 end
 

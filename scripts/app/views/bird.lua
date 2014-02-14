@@ -9,4 +9,17 @@ function Bird:flap()
     self:playAnimationForever(animation)
 end
 
+function Bird:flyUpAndDown()
+    self:runAction(
+        CCRepeatForever:create(
+            transition.sequence({
+                CCMoveBy:create(0.2, ccp(0, 20)),
+                CCMoveBy:create(0.1, ccp(0, 0)),
+                CCMoveBy:create(0.2, ccp(0, -20)),
+                CCMoveBy:create(0.1, ccp(0, 0))
+            })
+        )
+    )
+end
+
 return Bird
