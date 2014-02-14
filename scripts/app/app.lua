@@ -14,7 +14,11 @@ function App:ctor()
 end
 
 function App:run()
+    self:loadResource()
+    self:enterGameScene()
+end
 
+function App:loadResource()
     CCFileUtils:sharedFileUtils():addSearchPath(
         RESOURCE_DIR
     )
@@ -23,7 +27,9 @@ function App:run()
         TEXTURES_DATA_FILENAME,
         TEXTURES_IMAGE_FILENAME
     )
+end
 
+function App:enterGameScene()
     self:enterScene("GameScene", nil, "fade", 0.6, display.COLOR_WHITE)
 end
 
