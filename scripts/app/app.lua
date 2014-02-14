@@ -33,4 +33,8 @@ function App:enterMenuScene()
     self:enterScene("MenuScene", nil, "fade", 0.6, display.COLOR_WHITE)
 end
 
+function App:enterGameScene()
+    self:enterScene("GameScene", nil, "fade", 0.6, display.COLOR_WHITE)
+end
+
 return App
