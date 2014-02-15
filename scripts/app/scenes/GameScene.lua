@@ -122,7 +122,6 @@ function GameScene:loadScore()
         text=''..self.score,
         color=display.COLOR_WHITE
     })
-    self.label:setString('hello')
     self.label:setPosition(ccp(display.width / 2, display.height * 3 / 4))
     self.label:setScaleX(1.5)
     self.label:setScaleY(1.5)
