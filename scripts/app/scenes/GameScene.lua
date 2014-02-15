@@ -1,5 +1,6 @@
 local Bird = import('..views.bird')
 local Hose = import('..views.hose')
+local hoses = {}
 local State = {
     ready=1,
     flying=2,
@@ -12,7 +13,7 @@ end)
 
 
 function GameScene:ctor()
-    self.hoses = {}
+    self.hoseCount = 0
     self:loadBackground()
 
     self.state = State.ready
@@ -27,9 +28,17 @@ end
 
 
 function GameScene:run()
-    scheduler:scheduleScriptFunc(function()
+    scheduler:scheduleScriptFunc(function(dt)
         if self.state == State.flying then
-            self:createHose(0)
+            local hose = self:createHose(0)
+            hose:moveToLeft()
+            if #hoses > 5 then
+                up = hoses['up1']
+                down = hoses['down1']
+                self:removeChild(up)
+                self:removeChild(down)
+                table.remove(hoses, 1)
+            end
         end
     end, 2, false)
 end
@@ -106,10 +115,17 @@ function GameScene:loadBird()
 end
 
 function GameScene:createHose(offset)
-    local hose = Hose.new(offset)
+    hose = Hose.new(offset)
     self.batch:addChild(hose.up, ZORDER.hose)
     self.batch:addChild(hose.down, ZORDER.hose)
-    hose:moveToLeft()
+    local index = #hoses + 1
+    hoses[index] = hose
+    hoses['up'..index] = hose.up
+    hoses['down'..index] = hose.down
+    return hose
+end
+
+function GameScene:countScore()
 end
 
 function GameScene:loadNextLoopButton()
