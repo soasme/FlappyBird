@@ -5,12 +5,14 @@ local State = {
     flying=2,
     dead=3
 }
+local scheduler = CCDirector:sharedDirector():getScheduler()
 local GameScene = class('GameScene', function()
     return display.newScene('GameScene')
 end)
 
 
 function GameScene:ctor()
+    self.hoses = {}
     self:loadBackground()
 
     self.state = State.ready
@@ -25,14 +27,19 @@ end
 
 
 function GameScene:run()
+    scheduler:scheduleScriptFunc(function()
+        if self.state == State.flying then
+            self:createHose(0)
+        end
+    end, 2, false)
 end
 
 function GameScene:loadResource()
+    self.nodes = {}
     self:loadScore()
     self:loadReady()
     self:loadTapTip()
     self:loadBird()
-    self:createHose()
 
     self.layerTouch = display.newLayer()
     self.layerTouch:addTouchEventListener(function(event, x, y)
@@ -98,8 +105,8 @@ function GameScene:loadBird()
     self.batch:addChild(self.bird)
 end
 
-function GameScene:createHose()
-    local hose = Hose.new()
+function GameScene:createHose(offset)
+    local hose = Hose.new(offset)
     self.batch:addChild(hose.up, ZORDER.hose)
     self.batch:addChild(hose.down, ZORDER.hose)
     hose:moveToLeft()
