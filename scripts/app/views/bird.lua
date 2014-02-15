@@ -27,7 +27,7 @@ function Bird:fly()
     local riseHeight = 100
     local x = self:getPositionX()
     local y = self:getPositionY()
-    local time = y / 800
+    local time = y / display.height
 
     self:stopAllActions()
     self:flap()
