@@ -23,6 +23,20 @@ function Bird:flyUpAndDown()
     )
 end
 
+function Bird:isOnTheFloor()
+    return self:getPositionY() <= 150
+end
+
+function Bird:fallen()
+    self:runAction(
+        CCMoveTo:create(1, ccp(self:getPositionX(), 100))
+        --CCSpawn:createWithTwoActions(
+            --CCMoveTo:create(1, ccp(self:getPositionX(), 100)),
+            --CCRotateTo:create(0.3, 90)
+        --)
+    )
+end
+
 function Bird:fly()
     local riseHeight = 100
     local x = self:getPositionX()
@@ -38,9 +52,7 @@ function Bird:fly()
                 CCRotateTo:create(0, -15)
             ),
             CCSpawn:createWithTwoActions(
-                transition.sequence({
-                    CCMoveTo:create(time, ccp(x, 150)),
-                }),
+                CCMoveTo:create(time, ccp(x, 150)),
                 CCRotateTo:create(0.3, 90)
             )
         })
