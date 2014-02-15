@@ -48,7 +48,7 @@ function GameScene:run()
             self.label:setString(''..self.score)
 
             if self.bird:isOnTheFloor() or self:collideWithHose() then
-                self.state = State.dead
+                self:onDead()
                 self.ground:stopAllActions()
                 for _, hose in ipairs(self.hoses) do
                     if not hose.isRemoved then
@@ -172,7 +172,7 @@ function GameScene:loadNextLoopButton()
     button:setPosition(display.width - 3 * display.width / 4, 170)
     button:setScaleX(0.5)
     button:setScaleY(0.5)
-    self.batch:addChild(button)
+    self.batch:addChild(button, ZORDER.button)
     button:setTouchEnabled(true)
     button:addTouchEventListener(function(event, x, y)
         app:enterGameScene()
@@ -185,14 +185,22 @@ function GameScene:loadGradeButton()
     button:setPosition(display.width - 1 * display.width / 4, 170)
     button:setScaleX(0.5)
     button:setScaleY(0.5)
-    self.batch:addChild(button)
+    self.batch:addChild(button, ZORDER.button)
 end
 
 function GameScene:loadGameOver()
     -- TODO load game over png
+    local gameover = display.newSprite('#gameover.png',
+        display.width / 2,
+        display.height * 2 /3
+    )
+    gameover:setScaleX(0.6)
+    gameover:setScaleY(0.6)
+    self.batch:addChild(gameover, ZORDER.gameover)
 end
 
 function GameScene:onDead()
+    self.state = State.dead
     self:loadGameOver()
     self:loadNextLoopButton()
     self:loadGradeButton()
