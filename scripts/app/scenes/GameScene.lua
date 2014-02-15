@@ -1,5 +1,6 @@
 local Bird = import('..views.bird')
 local Background = import('..views.background')
+local Hose = import('..views.hose')
 local State = {
     ready=1,
     flying=2,
@@ -19,6 +20,7 @@ function GameScene:ctor()
     self:addChild(self.batch)
 
     self:loadResource()
+    self:loadGround()
     self:run()
 end
 
@@ -31,6 +33,7 @@ function GameScene:loadResource()
     self:loadReady()
     self:loadTapTip()
     self:loadBird()
+    self:createHose()
 
     self.layerTouch = display.newLayer()
     self.layerTouch:addTouchEventListener(function(event, x, y)
@@ -44,9 +47,28 @@ function GameScene:resetResource()
 end
 
 function GameScene:loadBackground()
-    local background = Background.new()
-    self:addChild(background)
+    self.bg = display.newSprite(BACKGROUND_FILENAME, display.cx, display.cy)
+    self:addChild(self.bg)
 end
+
+function GameScene:loadGround()
+    self.ground = display.newSprite(GROUND_FILENAME, display.cx, display.bottom)
+    self:addChild(self.ground, ZORDER.ground)
+    self:moveGround()
+end
+
+function GameScene:moveGround()
+    self.ground:runAction(
+        CCRepeatForever:create(
+            transition.sequence({
+                CCMoveTo:create(0.3, ccp(display.cx - 60, display.bottom)),
+                CCMoveTo:create(0, ccp(display.cx, display.bottom))
+            })
+        )
+    )
+end
+
+
 
 function GameScene:loadScore()
 end
@@ -75,6 +97,12 @@ function GameScene:loadBird()
     self.bird:setPosition(display.width / 3, display.height / 2)
     self.bird:flap()
     self.batch:addChild(self.bird)
+end
+
+function GameScene:createHose()
+    local hose = Hose.new()
+    self.batch:addChild(hose.up, ZORDER.hose)
+    self.batch:addChild(hose.down, ZORDER.hose)
 end
 
 function GameScene:loadNextLoopButton()
