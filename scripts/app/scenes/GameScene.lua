@@ -1,6 +1,5 @@
 local Bird = import('..views.bird')
 local Hose = import('..views.hose')
-local hoses = {}
 local State = {
     ready=1,
     flying=2,
@@ -32,13 +31,6 @@ function GameScene:run()
         if self.state == State.flying then
             local hose = self:createHose(0)
             hose:moveToLeft()
-            if #hoses > 5 then
-                up = hoses['up1']
-                down = hoses['down1']
-                self:removeChild(up)
-                self:removeChild(down)
-                table.remove(hoses, 1)
-            end
         end
     end, 2, false)
 end
@@ -118,10 +110,6 @@ function GameScene:createHose(offset)
     hose = Hose.new(offset)
     self.batch:addChild(hose.up, ZORDER.hose)
     self.batch:addChild(hose.down, ZORDER.hose)
-    local index = #hoses + 1
-    hoses[index] = hose
-    hoses['up'..index] = hose.up
-    hoses['down'..index] = hose.down
     return hose
 end
 

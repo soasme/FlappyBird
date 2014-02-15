@@ -35,9 +35,12 @@ end
 
 function Hose:moveSprite(sprite, height)
     time = 3.9 + self.beginOffset / 200
-    sprite:runAction(
-        CCMoveTo:create(time, ccp(-300, sprite:getPositionY()))
-    )
+    sprite:runAction(transition.sequence({
+        CCMoveTo:create(time, ccp(-300, sprite:getPositionY())),
+        CCCallFuncN:create(function()
+            sprite:getParent():removeChild(sprite, true)
+        end)
+    }))
 end
 
 return Hose
