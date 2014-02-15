@@ -8,6 +8,8 @@ CONFIG = {
 ZORDER = {
     hose = 3,
     bird = 4,
+    button = 5,
+    gameover = 5,
     ground = 1000,
 }
 
