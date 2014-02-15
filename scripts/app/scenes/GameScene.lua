@@ -102,6 +102,7 @@ function GameScene:createHose()
     local hose = Hose.new()
     self.batch:addChild(hose.up, ZORDER.hose)
     self.batch:addChild(hose.down, ZORDER.hose)
+    hose:moveToLeft()
 end
 
 function GameScene:loadNextLoopButton()
