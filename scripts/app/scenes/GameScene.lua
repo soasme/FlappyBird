@@ -1,5 +1,4 @@
 local Bird = import('..views.bird')
-local Background = import('..views.background')
 local Hose = import('..views.hose')
 local State = {
     ready=1,
