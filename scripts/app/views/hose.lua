@@ -1,5 +1,7 @@
-local Hose = class('Hose', function()
-    return CCNode:create()
+local Hose = class('Hose', function(beginOffset)
+    node = CCNode:create()
+    node.beginOffset = beginOffset
+    return node
 end)
 
 function Hose:ctor()
@@ -14,18 +16,29 @@ function Hose:ctor()
 
     down_height = self.center + math.random(200, 600)
     up_height = down_height - 650
-    self.down:setPosition(ccp(display.right + 200, down_height))
-    self.up:setPosition(ccp(display.right + 200, up_height))
+    self.down:setPosition(ccp(display.right + self.beginOffset, down_height))
+    self.up:setPosition(ccp(display.right + self.beginOffset, up_height))
+end
+
+
+function Hose:hasPassed()
+    return self.up:getPositionX() < 0
 end
 
 function Hose:moveToLeft()
-    self.up:runAction(
-        CCMoveBy:create(4, ccp(-800, 0))
-    )
-    self.down:runAction(
-        CCMoveBy:create(4, ccp(-800, 0))
-    )
+    down_height = self.center + math.random(200, 600)
+    up_height = down_height - 650
+    self:moveSprite(self.up, up_height)
+    self:moveSprite(self.down, down_height)
 end
 
+function Hose:moveSprite(sprite, height)
+    time = 3.9 + self.beginOffset / 200
+    sprite:runAction(
+        transition.sequence({
+            CCMoveTo:create(time, ccp(-300, sprite:getPositionY())),
+        })
+    )
+end
 
 return Hose
