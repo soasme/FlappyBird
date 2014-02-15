@@ -5,6 +5,10 @@ CONFIG = {
     SCREEN_AUTOSCALE = "FIXED_WIDTH"
 }
 
+ZORDER = {
+    hose = 3,
+    ground = 1000,
+}
 
 RESOURCE_DIR = 'res/'
 
