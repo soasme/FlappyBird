@@ -7,6 +7,7 @@ CONFIG = {
 
 ZORDER = {
     hose = 3,
+    bird = 4,
     ground = 1000,
 }
 
