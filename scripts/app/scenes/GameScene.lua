@@ -40,14 +40,16 @@ function GameScene:run()
     scheduler:scheduleScriptFunc(function(dt)
         if self.state == State.flying then
             local score = #self.hoses - 1
-            if score >= 0 then
-                self.score = score
+            if score < 0 then
+                score = 0
             end
+
+            self.score = score
             self.label:setString(''..self.score)
-            if self.bird:getPositionY() <= 150 then
+
+            if self.bird:isOnTheFloor() or self:collideWithHose() then
                 self.state = State.dead
                 self.ground:stopAllActions()
-                self.bird:stopAllActions()
                 for _, hose in ipairs(self.hoses) do
                     if not hose.isRemoved then
                         hose:stop()
@@ -62,6 +64,16 @@ function GameScene:run()
             end
         end
     end, 0.01, false)
+end
+
+function GameScene:collideWithHose()
+    local birdBox = self.bird:getBoundingBox()
+    local score = self.score
+    local hose = self.hoses[self.score]
+    if not hose then
+        return false
+    end
+    return hose.up:getBoundingBox():intersectsRect(birdBox) or hose.down:getBoundingBox():intersectsRect(birdBox)
 end
 
 function GameScene:loadResource()
