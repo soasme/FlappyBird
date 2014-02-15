@@ -11,8 +11,11 @@ function Hose:ctor()
     local upHeight = self.up:getContentSize().height
     self.down:setScaleX(0.5)
     self.down:setScaleY(0.6)
-    self.down:setPosition(ccp(display.width / 2, self.center + 300))
-    self.up:setPosition(ccp(display.width / 2, self.center - 350))
+
+    down_height = self.center + math.random(200, 600)
+    up_height = down_height - 650
+    self.down:setPosition(ccp(display.right , down_height))
+    self.up:setPosition(ccp(display.right, up_height))
 end
 
 
