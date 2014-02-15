@@ -48,6 +48,12 @@ function GameScene:run()
                         hose:stop()
                     end
                 end
+                self:runAction(transition.sequence({
+                    CCMoveBy:create(0.01, ccp(0, 2)),
+                    CCMoveBy:create(0.01, ccp(2, 2)),
+                    CCMoveBy:create(0.01, ccp(2, 0)),
+                    CCMoveBy:create(0.01, ccp(0, 0)),
+                }))
             end
         end
     end, 0.01, false)
