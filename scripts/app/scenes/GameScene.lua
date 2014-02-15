@@ -12,7 +12,7 @@ end)
 
 
 function GameScene:ctor()
-    self.hoseCount = 0
+    self.score = 0
     self:loadBackground()
 
     self.state = State.ready
@@ -39,6 +39,11 @@ function GameScene:run()
 
     scheduler:scheduleScriptFunc(function(dt)
         if self.state == State.flying then
+            local score = #self.hoses - 1
+            if score >= 0 then
+                self.score = score
+            end
+            self.label:setString(''..self.score)
             if self.bird:getPositionY() <= 150 then
                 self.state = State.dead
                 self.ground:stopAllActions()
@@ -101,6 +106,15 @@ end
 
 
 function GameScene:loadScore()
+    self.label = ui.newTTFLabel({
+        text=''..self.score,
+        color=display.COLOR_WHITE
+    })
+    self.label:setString('hello')
+    self.label:setPosition(ccp(display.width / 2, display.height * 3 / 4))
+    self.label:setScaleX(1.5)
+    self.label:setScaleY(1.5)
+    self:addChild(self.label)
 end
 
 function GameScene:loadReady()
