@@ -35,8 +35,10 @@ function Bird:fly()
         transition.sequence({
             CCSpawn:createWithTwoActions(
                 transition.sequence({
-                    CCMoveBy:create(0.4, ccp(0, riseHeight)),
-                    CCMoveBy:create(0.38, ccp(0, -riseHeight)),
+                    CCMoveBy:create(0.28, ccp(0, riseHeight)),
+                    CCMoveBy:create(0.1, ccp(0, 10)),
+                    CCMoveBy:create(0.1, ccp(0, -10)),
+                    CCMoveBy:create(0.28, ccp(0, -riseHeight)),
                 }),
                 CCRotateTo:create(0, -15)
             ),
