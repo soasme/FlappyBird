@@ -14,8 +14,17 @@ function Hose:ctor()
 
     down_height = self.center + math.random(200, 600)
     up_height = down_height - 650
-    self.down:setPosition(ccp(display.right , down_height))
-    self.up:setPosition(ccp(display.right, up_height))
+    self.down:setPosition(ccp(display.right + 200, down_height))
+    self.up:setPosition(ccp(display.right + 200, up_height))
+end
+
+function Hose:moveToLeft()
+    self.up:runAction(
+        CCMoveBy:create(4, ccp(-800, 0))
+    )
+    self.down:runAction(
+        CCMoveBy:create(4, ccp(-800, 0))
+    )
 end
 
 
