@@ -22,7 +22,10 @@ function GameScene:ctor()
 
     self:loadResource()
     self:loadGround()
+
+    self.hoses = {}
     self:run()
+
 end
 
 
@@ -32,11 +35,25 @@ function GameScene:run()
             local hose = self:createHose(0)
             hose:moveToLeft()
         end
-    end, 2, false)
+    end, 1.4, false)
+
+    scheduler:scheduleScriptFunc(function(dt)
+        if self.state == State.flying then
+            if self.bird:getPositionY() <= 150 then
+                self.state = State.dead
+                self.ground:stopAllActions()
+                self.bird:stopAllActions()
+                for _, hose in ipairs(self.hoses) do
+                    if not hose.isRemoved then
+                        hose:stop()
+                    end
+                end
+            end
+        end
+    end, 0.01, false)
 end
 
 function GameScene:loadResource()
-    self.nodes = {}
     self:loadScore()
     self:loadReady()
     self:loadTapTip()
@@ -103,13 +120,15 @@ function GameScene:loadBird()
     self.bird:setScaleY(0.5)
     self.bird:setPosition(display.width / 3, display.height / 2)
     self.bird:flap()
-    self.batch:addChild(self.bird)
+    self.batch:addChild(self.bird, ZORDER.bird)
 end
 
 function GameScene:createHose(offset)
-    hose = Hose.new(offset)
+    local hose = Hose.new(offset)
+    hose:retain()
     self.batch:addChild(hose.up, ZORDER.hose)
     self.batch:addChild(hose.down, ZORDER.hose)
+    self.hoses[#self.hoses + 1] = hose
     return hose
 end
 
