@@ -38,7 +38,7 @@ function Bird:fallen()
 end
 
 function Bird:fly()
-    local riseHeight = 100
+    local riseHeight = 90
     local x = self:getPositionX()
     local y = self:getPositionY()
     local time = y / display.height
