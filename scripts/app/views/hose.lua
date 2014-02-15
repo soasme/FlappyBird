@@ -2,6 +2,7 @@ local scheduler = CCDirector:sharedDirector():getScheduler()
 local Hose = class('Hose', function(beginOffset)
     node = CCNode:create()
     node.beginOffset = beginOffset
+    node.isRemoved = false
     return node
 end)
 
@@ -26,6 +27,15 @@ function Hose:hasPassed()
     return self.up:getPositionX() < 0
 end
 
+function Hose:stop()
+    if self.up then
+        self.up:stopAllActions()
+    end
+    if self.down then
+        self.down:stopAllActions()
+    end
+end
+
 function Hose:moveToLeft()
     down_height = self.center + math.random(200, 600)
     up_height = down_height - 650
@@ -39,6 +49,7 @@ function Hose:moveSprite(sprite, height)
         CCMoveTo:create(time, ccp(-300, sprite:getPositionY())),
         CCCallFuncN:create(function()
             sprite:getParent():removeChild(sprite, true)
+            self.isRemoved = true
         end)
     }))
 end
