@@ -194,8 +194,9 @@ function GameScene:loadGameOver()
         display.width / 2,
         display.height * 2 /3
     )
-    gameover:setScaleX(0.6)
-    gameover:setScaleY(0.6)
+    local ratio = (display.width * 2 / 3) / gameover:getContentSize().width
+    gameover:setScaleX(ratio)
+    gameover:setScaleY(ratio)
     self.batch:addChild(gameover, ZORDER.gameover)
 end
 
