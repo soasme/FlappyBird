@@ -1,3 +1,4 @@
+local scheduler = CCDirector:sharedDirector():getScheduler()
 local Hose = class('Hose', function(beginOffset)
     node = CCNode:create()
     node.beginOffset = beginOffset
@@ -35,9 +36,7 @@ end
 function Hose:moveSprite(sprite, height)
     time = 3.9 + self.beginOffset / 200
     sprite:runAction(
-        transition.sequence({
-            CCMoveTo:create(time, ccp(-300, sprite:getPositionY())),
-        })
+        CCMoveTo:create(time, ccp(-300, sprite:getPositionY()))
     )
 end
 
