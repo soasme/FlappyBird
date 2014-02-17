@@ -13,6 +13,7 @@ end)
 
 function GameScene:ctor()
     self.score = 0
+    self.hited = false
     self:loadBackground()
 
     self.state = State.ready
@@ -44,10 +45,14 @@ function GameScene:run()
                 score = 0
             end
 
+            if score > self.score then
+                audio.playEffect(SFX.point)
+            end
             self.score = score
             self.label:setString(''..self.score)
 
             if self.bird:isOnTheFloor() or self:collideWithHose() then
+                audio.playEffect(SFX.hit)
                 self:onDead()
                 self.ground:stopAllActions()
                 for _, hose in ipairs(self.hoses) do
@@ -202,6 +207,7 @@ end
 
 function GameScene:onDead()
     self.state = State.dead
+    audio.playEffect(SFX.die)
     self:loadGameOver()
     self:loadNextLoopButton()
     self:loadGradeButton()
