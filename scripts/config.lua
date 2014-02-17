@@ -21,3 +21,11 @@ FLAPPY_FRAME_DATA_FILENAME = 'flappy_frame.plist'
 
 BACKGROUND_FILENAME = 'bg.png'
 GROUND_FILENAME = 'ground.png'
+
+SFX = {
+    swoosh = 'sfx/sfx_swooshing.mp3',
+    wing = 'sfx/sfx_wing.mp3',
+    point = 'sfx/sfx_point.mp3',
+    die = 'sfx/sfx_die.mp3',
+    hit = 'sfx/sfx_hit.mp3',
+}
