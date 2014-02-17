@@ -57,6 +57,7 @@ function Bird:fly()
             )
         })
     )
+    audio.playEffect(SFX.swoosh)
 end
 
 return Bird
