@@ -27,6 +27,10 @@ function App:loadResource()
         TEXTURES_DATA_FILENAME,
         TEXTURES_IMAGE_FILENAME
     )
+
+    for _, file in ipairs(SFX) do
+        audio.preloadSound(file)
+    end
 end
 
 function App:enterMenuScene()
