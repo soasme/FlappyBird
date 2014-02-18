@@ -51,7 +51,9 @@ function GameScene:run()
             self.score = score
             self.label:setString(''..self.score)
 
-            if self.bird:isOnTheFloor() or self:collideWithHose() then
+            isOnTheFloor = self.bird:isOnTheFloor()
+            isCollideWithHose = self:collideWithHose()
+            if isOnTheFloor or isCollideWithHose then
                 audio.playEffect(SFX.hit)
                 self:onDead()
                 self.ground:stopAllActions()
@@ -207,7 +209,6 @@ end
 
 function GameScene:onDead()
     self.state = State.dead
-    audio.playEffect(SFX.die)
     self:loadGameOver()
     self:loadNextLoopButton()
     self:loadGradeButton()
