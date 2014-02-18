@@ -34,10 +34,12 @@ function App:loadResource()
 end
 
 function App:enterMenuScene()
+    audio.playEffect(SFX.swoosh)
     self:enterScene("MenuScene", nil, "fade", 0.6, display.COLOR_WHITE)
 end
 
 function App:enterGameScene()
+    audio.playEffect(SFX.swoosh)
     self:enterScene("GameScene", nil, "fade", 0.6, display.COLOR_WHITE)
 end
 
