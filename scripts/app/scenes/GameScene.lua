@@ -53,8 +53,14 @@ function GameScene:run()
 
             isOnTheFloor = self.bird:isOnTheFloor()
             isCollideWithHose = self:collideWithHose()
-            if isOnTheFloor or isCollideWithHose then
+            if isOnTheFloor then
                 audio.playEffect(SFX.hit)
+            end
+            if isCollideWithHose then
+                audio.playEffect(SFX.hit)
+                audio.playEffect(SFX.die)
+            end
+            if isOnTheFloor or isCollideWithHose then
                 self:onDead()
                 self.ground:stopAllActions()
                 for _, hose in ipairs(self.hoses) do
