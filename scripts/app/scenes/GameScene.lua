@@ -211,6 +211,7 @@ function GameScene:loadGameOver()
     gameover:setScaleX(ratio)
     gameover:setScaleY(ratio)
     self.batch:addChild(gameover, ZORDER.gameover)
+    gameover:runAction(transition.newEasing(CCFadeIn:create(0.3), 'BOUNCEIN'))
 end
 
 function GameScene:onDead()
