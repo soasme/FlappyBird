@@ -3,3 +3,4 @@ debug.log
 proj.android/.idea/*
 proj.android/out/*
 proj.android/obj/*
+proj.android/libs/armeabi/libgame.so
