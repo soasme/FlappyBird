@@ -160,8 +160,8 @@ end
 
 function GameScene:loadBird()
     self.bird = Bird.new()
-    self.bird:setScaleX(0.5)
-    self.bird:setScaleY(0.5)
+    self.bird:setScaleX(0.618)
+    self.bird:setScaleY(0.618)
     self.bird:setPosition(display.width / 3, display.height / 2)
     self.bird:flap()
     self.batch:addChild(self.bird, ZORDER.bird)
