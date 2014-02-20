@@ -53,7 +53,7 @@ function Bird:fly()
 
     self:stopAllActions()
     self:flap()
-    if self:getPositionY() > display.height then
+    if self:getPositionY() > display.height + 200 then
         self:runAction(fall)
     else
         self:runAction(transition.sequence({jump, fall}))
