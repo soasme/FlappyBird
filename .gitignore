@@ -2,3 +2,4 @@ debug.log
 .DS_Store
 proj.android/.idea/*
 proj.android/out/*
+proj.android/obj/*
