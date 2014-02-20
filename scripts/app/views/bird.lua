@@ -42,21 +42,22 @@ function Bird:fly()
     local x = self:getPositionX()
     local y = self:getPositionY()
     local time = y / display.height
+    local fall = CCSpawn:createWithTwoActions(
+        CCMoveTo:create(time, ccp(x, 150)),
+        CCRotateTo:create(0.3, 90)
+    )
+    local jump = CCSpawn:createWithTwoActions(
+        CCJumpBy:create(0.7, ccp(0, 0), riseHeight, 1),
+        CCRotateTo:create(0, -15)
+    )
 
     self:stopAllActions()
     self:flap()
-    self:runAction(
-        transition.sequence({
-            CCSpawn:createWithTwoActions(
-                CCJumpBy:create(0.7, ccp(0, 0), riseHeight, 1),
-                CCRotateTo:create(0, -15)
-            ),
-            CCSpawn:createWithTwoActions(
-                CCMoveTo:create(time, ccp(x, 150)),
-                CCRotateTo:create(0.3, 90)
-            )
-        })
-    )
+    if self:getPositionY() > display.height then
+        self:runAction(fall)
+    else
+        self:runAction(transition.sequence({jump, fall}))
+    end
     audio.playEffect(SFX.wing)
 end
 
