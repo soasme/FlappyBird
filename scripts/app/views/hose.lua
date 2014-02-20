@@ -18,7 +18,7 @@ function Hose:ctor()
     self.down:setScaleY(ratio)
 
     down_height = self.center + math.random(200, 600)
-    up_height = down_height - 640
+    up_height = down_height - 620
     self.down:setPosition(ccp(display.right + self.beginOffset, down_height))
     self.up:setPosition(ccp(display.right + self.beginOffset, up_height))
 end
