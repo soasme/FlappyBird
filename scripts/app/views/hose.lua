@@ -10,14 +10,15 @@ function Hose:ctor()
     self.center = display.height / 2
     self.up = CCSprite:createWithSpriteFrameName('holdback1.png')
     self.down = CCSprite:createWithSpriteFrameName('holdback2.png')
-    self.up:setScaleX(0.5)
-    self.up:setScaleY(0.6)
+    local ratio = display.width / (6.0 * self.up:getContentSize().width )
     local upHeight = self.up:getContentSize().height
-    self.down:setScaleX(0.5)
-    self.down:setScaleY(0.6)
+    self.up:setScaleX(ratio)
+    self.up:setScaleY(ratio)
+    self.down:setScaleX(ratio)
+    self.down:setScaleY(ratio)
 
     down_height = self.center + math.random(200, 600)
-    up_height = down_height - 650
+    up_height = down_height - 640
     self.down:setPosition(ccp(display.right + self.beginOffset, down_height))
     self.up:setPosition(ccp(display.right + self.beginOffset, up_height))
 end
