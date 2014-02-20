@@ -31,7 +31,12 @@ end
 
 
 function GameScene:run()
+    begin = 0
     scheduler:scheduleScriptFunc(function(dt)
+        begin = begin + dt
+        if begin < 2 then
+            return
+        end
         if self.state == State.flying then
             local hose = self:createHose(0)
             hose:moveToLeft()
@@ -61,6 +66,7 @@ function GameScene:run()
                 audio.playEffect(SFX.die)
             end
             if isOnTheFloor or isCollideWithHose then
+                begin = 0
                 self:onDead()
                 self.ground:stopAllActions()
                 for _, hose in ipairs(self.hoses) do
