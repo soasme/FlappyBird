@@ -58,7 +58,6 @@ function Bird:fly()
     else
         self:runAction(transition.sequence({jump, fall}))
     end
-    audio.playEffect(SFX.wing)
 end
 
 return Bird
