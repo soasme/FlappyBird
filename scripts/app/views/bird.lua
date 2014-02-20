@@ -41,7 +41,7 @@ function Bird:fly()
     local riseHeight = 90
     local x = self:getPositionX()
     local y = self:getPositionY()
-    local time = y / display.height
+    local time = y * 0.8 / display.height
     local fall = CCSpawn:createWithTwoActions(
         CCMoveTo:create(time, ccp(x, 150)),
         CCRotateTo:create(0.3, 90)
