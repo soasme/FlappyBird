@@ -15,7 +15,11 @@ function GameScene:ctor()
     self.score = 0
     self.state = State.ready
     self.hoses = {}
-    self:loadBackground()
+    self.world = CCPhysicsWorld:create(0, -300)
+    self:addChild(self.world)
+    self.worldDebug = self.world:createDebugNode()
+    self:addChild(self.worldDebug)
+    -- self:loadBackground()
 
     self.batch = display.newBatchNode(TEXTURES_IMAGE_FILENAME)
     self:addChild(self.batch)
@@ -30,18 +34,18 @@ end
 
 function GameScene:run()
     begin = 0
-    scheduler:scheduleScriptFunc(function(dt)
-        begin = begin + dt
-        if begin < 2 then
-            return
-        end
-        if self.state == State.flying then
-            local hose = self:createHose(0)
-            hose:moveToLeft()
-        end
-    end, 1.4, false)
+    --scheduler:scheduleScriptFunc(function(dt)
+        --begin = begin + dt
+        --if begin < 2 then
+            --return
+        --end
+        --if self.state == State.flying then
+            --local hose = self:createHose(0)
+            --hose:moveToLeft()
+        --end
+    --end, 1.4, false)
 
-    scheduler:scheduleScriptFunc(function(dt)
+    local onUpdate = function(dt)
         if self.state == State.flying then
             local score = #self.hoses - 1
             if score < 0 then
@@ -80,7 +84,8 @@ function GameScene:run()
                 }))
             end
         end
-    end, 0.01, false)
+    end
+    --scheduler:scheduleScriptFunc(onUpdate , 0.01, false)
 end
 
 function GameScene:collideWithHose()
@@ -163,11 +168,10 @@ function GameScene:loadTapTip()
 end
 
 function GameScene:loadBird()
-    self.bird = Bird.new()
-    self.bird:setScaleX(0.618)
-    self.bird:setScaleY(0.618)
-    self.bird:setPosition(display.width / 3, display.height / 2)
-    self.bird:flap()
+    self.birdBox = self.world:createCircleBody(1, 20)
+    self.birdBox:setElasticity(1.0)
+    self.birdBox:setPosition(display.width / 3, display.height / 2)
+    self.bird = Bird.new(self.birdBox)
     self.batch:addChild(self.bird, ZORDER.bird)
 end
 
@@ -238,6 +242,7 @@ function GameScene:onTap(event, x, y)
         if self.state == State.ready then
             self:removeReadyChildren()
             self.state = State.flying
+            self.world:start()
             self.bird:fly()
         elseif self.state == State.flying then
             self.bird:fly()
