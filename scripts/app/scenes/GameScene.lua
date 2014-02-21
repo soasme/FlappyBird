@@ -13,18 +13,16 @@ end)
 
 function GameScene:ctor()
     self.score = 0
-    self.hited = false
+    self.state = State.ready
+    self.hoses = {}
     self:loadBackground()
 
-    self.state = State.ready
-    self.birdHeight = 0
     self.batch = display.newBatchNode(TEXTURES_IMAGE_FILENAME)
     self:addChild(self.batch)
 
     self:loadResource()
     self:loadGround()
 
-    self.hoses = {}
     self:run()
 
 end
