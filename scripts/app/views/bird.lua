@@ -3,6 +3,17 @@ local Bird = class('Bird', function()
     return sprite
 end)
 
+function Bird:ctor(box)
+    self:setScaleX(0.618)
+    self:setScaleY(0.618)
+    self:flap()
+    self:setPosition(display.width / 3, display.height / 2)
+    self.box = box
+    if box then
+        box:setPosition(display.width / 3, display.height / 2)
+        box:bind(self)
+    end
+end
 function Bird:flap()
     self.frames = display.newFrames("bird%d.png", 1, 3, true)
     self.animation = display.newAnimation(self.frames, 0.3 / 3)
@@ -27,37 +38,13 @@ function Bird:isOnTheFloor()
     return self:getPositionY() <= 150
 end
 
-function Bird:fallen()
-    self:runAction(
-        CCMoveTo:create(1, ccp(self:getPositionX(), 100))
-        --CCSpawn:createWithTwoActions(
-            --CCMoveTo:create(1, ccp(self:getPositionX(), 100)),
-            --CCRotateTo:create(0.3, 90)
-        --)
-    )
-end
-
 function Bird:fly()
-    local riseHeight = 90
-    local x = self:getPositionX()
+    self.box:applyForce(0, 0, 0, 0)
     local y = self:getPositionY()
-    local time = y * 0.8 / display.height
-    local fall = CCSpawn:createWithTwoActions(
-        CCMoveTo:create(time, ccp(x, 150)),
-        CCRotateTo:create(0.3, 90)
-    )
-    local jump = CCSpawn:createWithTwoActions(
-        CCJumpBy:create(0.7, ccp(0, 0), riseHeight, 1),
-        CCRotateTo:create(0, -15)
-    )
-
-    self:stopAllActions()
-    self:flap()
-    if self:getPositionY() > display.height + 200 then
-        self:runAction(fall)
-    else
-        self:runAction(transition.sequence({jump, fall}))
+    if y > display.height then
+        return
     end
+    self.box:setVelocity(0, 300)
 end
 
 return Bird
