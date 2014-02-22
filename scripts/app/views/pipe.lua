@@ -9,7 +9,7 @@ function Pipe:ctor(world)
     self.downSectionSprite = CCSprite:createWithSpriteFrameName('holdback1.png')
     self.upSectionSprite = CCSprite:createWithSpriteFrameName('holdback2.png')
     local height = 200
-    local offset = 95
+    local offset = 75
     local groundHeight = 140
     local random = math.random(300, display.top - 200)
     local width = display.width / 6
@@ -37,7 +37,6 @@ function Pipe:ctor(world)
     self.upSection:applyForce(0, -GRAVITY, 0, 0)
     self.upSection:setVelocity(VELOCITY, 0)
     self.upSection:setCollisionType(CollisionType.pipe)
-
 end
 
 -- Note: It should set texture rect before binding.

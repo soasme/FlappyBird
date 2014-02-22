@@ -44,7 +44,7 @@ function Bird:fly()
     if y > display.height then
         return
     end
-    self.box:setVelocity(0, 300)
+    self.box:setVelocity(0, 260)
 end
 
 return Bird

@@ -1,4 +1,4 @@
-DEBUG = 1
+DEBUG = 0
 DEBUG_FPS = true
 
 CONFIG_SCREEN_WIDTH     = 640
@@ -36,6 +36,7 @@ CollisionType = {
     hose = 3,
     pipe = 3, -- refactor
     pipeKiller = 4,
+    score = 5,
 }
 
 GRAVITY = -450
