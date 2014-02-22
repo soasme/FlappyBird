@@ -60,6 +60,13 @@ function GameScene:run()
         ),
         CollisionType.pipe, CollisionType.pipeKiller
     )
+    self.world:addCollisionScriptListener(
+        handler(
+            self,
+            self.onCollisionBetweenBirdAndScore
+        ),
+        CollisionType.bird, CollisionType.score
+    )
     scheduler:scheduleScriptFunc(function()
         if self.state == State.flying then
             self:createPipe()
@@ -92,6 +99,14 @@ end
 
 function GameScene:onCollisionBetweenBirdAndPipe(eventType, event)
     if eventType == 'begin' then self:onDead() end
+end
+
+function GameScene:onCollisionBetweenBirdAndScore(eventType, event)
+    if eventType == 'begin' then
+        self.world:removeBody(event:getBody2())
+        self.score = self.score + 1
+        self.label:setString(''..self.score)
+    end
 end
 
 function GameScene:onCollisionBetweenPipeAndKiller(eventType, event)
