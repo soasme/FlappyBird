@@ -19,7 +19,9 @@ function GameScene:ctor()
     self:addChild(self.world)
     self.worldDebug = self.world:createDebugNode()
     self:addChild(self.worldDebug)
-    -- self:loadBackground()
+    if DEBUG ~= 1 then
+        self:loadBackground()
+    end
 
     self.batch = display.newBatchNode(TEXTURES_IMAGE_FILENAME)
     self:addChild(self.batch)
@@ -29,7 +31,7 @@ function GameScene:ctor()
 
     self:run()
 
-    self:createHose()
+    --self:createHose()
 
 end
 
@@ -51,16 +53,6 @@ function GameScene:run()
     )
 
     begin = 0
-    --scheduler:scheduleScriptFunc(function(dt)
-        --begin = begin + dt
-        --if begin < 2 then
-            --return
-        --end
-        --if self.state == State.flying then
-            --local hose = self:createHose(0)
-            --hose:moveToLeft()
-        --end
-    --end, 1.4, false)
 
     local onUpdate = function(dt)
         if self.state == State.flying then
