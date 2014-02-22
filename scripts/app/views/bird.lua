@@ -11,6 +11,7 @@ function Bird:ctor(box)
     self.box = box
     if box then
         box:setPosition(display.width / 3, display.height / 2)
+        box:setCollisionType(1)
         box:bind(self)
     end
 end
@@ -39,7 +40,6 @@ function Bird:isOnTheFloor()
 end
 
 function Bird:fly()
-    self.box:applyForce(0, 0, 0, 0)
     local y = self:getPositionY()
     if y > display.height then
         return
