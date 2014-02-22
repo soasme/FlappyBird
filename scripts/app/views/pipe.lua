@@ -2,7 +2,7 @@ local Pipe = class('Pipe', function()
     return display.newLayer()
 end)
 
-VELOCITY = -100
+VELOCITY = -80
 
 function Pipe:ctor(world)
     self.world = world
