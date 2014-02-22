@@ -35,7 +35,6 @@ function GameScene:ctor()
 
     --self:createHose()
     self:createPipeKiller()
-    self:createPipe()
 
 end
 
@@ -62,6 +61,11 @@ function GameScene:run()
         ),
         CollisionType.pipe, CollisionType.pipeKiller
     )
+    scheduler:scheduleScriptFunc(function()
+        if self.state == State.flying then
+            self:createPipe()
+        end
+    end, 1.8, false)
 
     begin = 0
 
@@ -162,6 +166,7 @@ function GameScene:loadGround()
     self.groundBox:setPosition(ccp(display.cx, 0))
     --self.groundBox:applyForce(0, 300, 0, 0)
     self.groundBox:setCollisionType(2)
+    self.groundBox:setElasticity(0)
     self:addChild(self.ground, ZORDER.ground)
     self:moveGround()
 end
@@ -209,7 +214,7 @@ end
 
 function GameScene:loadBird()
     self.birdBox = self.world:createCircleBody(1, 20)
-    self.birdBox:setElasticity(1.0)
+    self.birdBox:setElasticity(0)
     self.birdBox:setPosition(display.width / 3, display.height / 2)
     self.bird = Bird.new(self.birdBox)
     self.batch:addChild(self.bird, ZORDER.bird)
