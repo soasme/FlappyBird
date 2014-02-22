@@ -97,6 +97,8 @@ function GameScene:onCollisionBetweenPipeAndKiller(eventType, event)
     if eventType == 'begin' then
         local pipe = event:getBody1()
         self.world:removeBody(pipe)
+        self.batch:removeChild(pipe.downSectionSprite)
+        self.batch:removeChild(pipe.upSectionSprite)
     end
 end
 
@@ -189,6 +191,8 @@ end
 
 function GameScene:createPipe()
     local pipe = Pipe.new(self.world)
+    self.batch:addChild(pipe.downSectionSprite)
+    self.batch:addChild(pipe.upSectionSprite)
     return pipe
 end
 
