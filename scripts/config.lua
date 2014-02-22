@@ -29,3 +29,9 @@ SFX = {
     die = 'sfx/sfx_die.mp3',
     hit = 'sfx/sfx_hit.mp3',
 }
+
+CollisionType = {
+    bird = 1,
+    ground = 2,
+    hose = 3
+}

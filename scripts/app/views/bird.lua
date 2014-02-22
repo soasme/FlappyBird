@@ -11,7 +11,7 @@ function Bird:ctor(box)
     self.box = box
     if box then
         box:setPosition(display.width / 3, display.height / 2)
-        box:setCollisionType(1)
+        box:setCollisionType(CollisionType.bird)
         box:bind(self)
     end
 end

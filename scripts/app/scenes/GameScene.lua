@@ -34,7 +34,12 @@ end
 
 function GameScene:run()
     self.world:addCollisionScriptListener(
-        handler(self, self.onCollisionBetweenGroundAndBird), 1, 2)
+        handler(
+            self,
+            self.onCollisionBetweenGroundAndBird
+        ),
+        CollisionType.bird, CollisionType.ground
+    )
 
     begin = 0
     --scheduler:scheduleScriptFunc(function(dt)
@@ -93,6 +98,9 @@ end
 
 function GameScene:onCollisionBetweenGroundAndBird(eventType, event)
     if eventType == 'begin' then self:onDead() end
+end
+
+function GameScene:onCollisionBetweenBirdAndHose(eventType, event)
 end
 
 function GameScene:collideWithHose()
