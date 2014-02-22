@@ -33,6 +33,9 @@ end
 
 
 function GameScene:run()
+    self.world:addCollisionScriptListener(
+        handler(self, self.onCollisionBetweenGroundAndBird), 1, 2)
+
     begin = 0
     --scheduler:scheduleScriptFunc(function(dt)
         --begin = begin + dt
@@ -88,6 +91,10 @@ function GameScene:run()
     --scheduler:scheduleScriptFunc(onUpdate , 0.01, false)
 end
 
+function GameScene:onCollisionBetweenGroundAndBird(eventType, event)
+    if eventType == 'begin' then self:onDead() end
+end
+
 function GameScene:collideWithHose()
     local birdBox = self.bird:getBoundingBox()
     local score = self.score
@@ -122,6 +129,11 @@ end
 
 function GameScene:loadGround()
     self.ground = display.newSprite(GROUND_FILENAME, display.cx, display.bottom)
+    local size = self.ground:getContentSize()
+    self.groundBox = self.world:createBoxBody(1, display.width, size.height)
+    self.groundBox:setPosition(ccp(display.cx, 0))
+    self.groundBox:applyForce(0, 300, 0, 0)
+    self.groundBox:setCollisionType(2)
     self:addChild(self.ground, ZORDER.ground)
     self:moveGround()
 end
@@ -223,6 +235,7 @@ function GameScene:loadGameOver()
 end
 
 function GameScene:onDead()
+    self.world:stop()
     self.state = State.dead
     self:loadGameOver()
     self:loadNextLoopButton()
