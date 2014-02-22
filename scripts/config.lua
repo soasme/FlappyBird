@@ -33,5 +33,7 @@ SFX = {
 CollisionType = {
     bird = 1,
     ground = 2,
-    hose = 3
+    hose = 3,
+    pipe = 3, -- refactor
+    pipeKiller = 4,
 }
