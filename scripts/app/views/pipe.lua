@@ -19,7 +19,7 @@ function Pipe:ctor(world)
     self.downSectionSprite:setTextureRect(CCRectMake(
         1, 479, 148, downSectionHeight
     ))
-    self.downSectionSprite:setScaleX(width / 148)
+    self.downSectionSprite:setScaleX(width / 128)
     self.downSection:bind(self.downSectionSprite)
     self.downSection:setPosition(display.width, groundHeight + 0.5 * downSectionHeight)
     self.downSection:setVelocity(VELOCITY, 0)
@@ -31,7 +31,7 @@ function Pipe:ctor(world)
     self.upSectionSprite:setTextureRect(CCRectMake(
         150, 459, 148, 830 + (830 - upSectionHeight)
     ))
-    self.upSectionSprite:setScaleX(width / 148)
+    self.upSectionSprite:setScaleX(width / 128)
     self.upSection:bind(self.upSectionSprite)
     self.upSection:setPosition(display.width, display.top - 0.5 * upSectionHeight)
     self.upSection:applyForce(0, -GRAVITY, 0, 0)
