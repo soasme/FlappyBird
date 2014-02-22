@@ -37,6 +37,14 @@ function Pipe:ctor(world)
     self.upSection:applyForce(0, -GRAVITY, 0, 0)
     self.upSection:setVelocity(VELOCITY, 0)
     self.upSection:setCollisionType(CollisionType.pipe)
+
+    self.scoreSection = self.world:createBoxBody(1, 1, offset * 2)
+    self.scoreSection:setElasticity(0)
+    self.scoreSection:setCollisionType(CollisionType.score)
+    self.scoreSection:setVelocity(VELOCITY, 0)
+    self.scoreSection:applyForce(0, -GRAVITY, 0, 0)
+    self.scoreSection:setPosition(display.width, random)
+
 end
 
 -- Note: It should set texture rect before binding.
