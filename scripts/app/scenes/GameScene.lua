@@ -1,5 +1,4 @@
 local Bird = import('..views.bird')
-local Hose = import('..views.hose')
 local Pipe = import('..views.pipe')
 local PipeKiller = import('..views.PipeKiller')
 local State = {
@@ -33,7 +32,6 @@ function GameScene:ctor()
 
     self:run()
 
-    --self:createHose()
     self:createPipeKiller()
 
 end
@@ -50,9 +48,9 @@ function GameScene:run()
     self.world:addCollisionScriptListener(
         handler(
             self,
-            self.onCollisionBetweenBirdAndHose
+            self.onCollisionBetweenBirdAndPipe
         ),
-        CollisionType.bird, CollisionType.hose
+        CollisionType.bird, CollisionType.pipe
     )
     self.world:addCollisionScriptListener(
         handler(
@@ -81,32 +79,7 @@ function GameScene:run()
             end
             self.score = score
             self.label:setString(''..self.score)
-
-            isOnTheFloor = self.bird:isOnTheFloor()
-            isCollideWithHose = self:collideWithHose()
-            if isOnTheFloor then
-                audio.playEffect(SFX.hit)
-            end
-            if isCollideWithHose then
-                audio.playEffect(SFX.hit)
-                audio.playEffect(SFX.die)
-            end
-            if isOnTheFloor or isCollideWithHose then
-                begin = 0
-                self:onDead()
-                self.ground:stopAllActions()
-                for _, hose in ipairs(self.hoses) do
-                    if not hose.isRemoved then
-                        hose:stop()
-                    end
-                end
-                self:runAction(transition.sequence({
-                    CCMoveBy:create(0.01, ccp(0, 2)),
-                    CCMoveBy:create(0.01, ccp(2, 2)),
-                    CCMoveBy:create(0.01, ccp(2, 0)),
-                    CCMoveBy:create(0.01, ccp(0, 0)),
-                }))
-            end
+            self.ground:stopAllActions()
         end
     end
     --scheduler:scheduleScriptFunc(onUpdate , 0.01, false)
@@ -116,7 +89,7 @@ function GameScene:onCollisionBetweenGroundAndBird(eventType, event)
     if eventType == 'begin' then self:onDead() end
 end
 
-function GameScene:onCollisionBetweenBirdAndHose(eventType, event)
+function GameScene:onCollisionBetweenBirdAndPipe(eventType, event)
     if eventType == 'begin' then self:onDead() end
 end
 
@@ -125,16 +98,6 @@ function GameScene:onCollisionBetweenPipeAndKiller(eventType, event)
         local pipe = event:getBody1()
         self.world:removeBody(pipe)
     end
-end
-
-function GameScene:collideWithHose()
-    local birdBox = self.bird:getBoundingBox()
-    local score = self.score
-    local hose = self.hoses[self.score]
-    if not hose then
-        return false
-    end
-    return hose.up:getBoundingBox():intersectsRect(birdBox) or hose.down:getBoundingBox():intersectsRect(birdBox)
 end
 
 function GameScene:loadResource()
@@ -227,14 +190,6 @@ end
 function GameScene:createPipe()
     local pipe = Pipe.new(self.world)
     return pipe
-end
-
-function GameScene:createHose()
-    local hose = Hose.new(self.world)
-    self.batch:addChild(hose.up, ZORDER.hose)
-    self.batch:addChild(hose.down, ZORDER.hose)
-    self.hoses[#self.hoses + 1] = hose
-    return hose
 end
 
 function GameScene:countScore()
