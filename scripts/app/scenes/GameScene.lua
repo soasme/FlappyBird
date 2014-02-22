@@ -18,10 +18,10 @@ function GameScene:ctor()
     self.hoses = {}
     self.world = CCPhysicsWorld:create(0, GRAVITY)
     self:addChild(self.world)
-    self.worldDebug = self.world:createDebugNode()
-    self:addChild(self.worldDebug)
     if DEBUG ~= 1 then
         self:loadBackground()
+        self.worldDebug = self.world:createDebugNode()
+        self:addChild(self.worldDebug)
     end
 
     self.batch = display.newBatchNode(TEXTURES_IMAGE_FILENAME)
