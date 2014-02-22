@@ -4,20 +4,18 @@ end)
 
 function Pipe:ctor(world)
     self.world = world
-    self:createUpBox()
+    local height = 200
+    self.downSection = self.world:createBoxBody(1, display.width / 8, height)
+    self.downSection:setPosition(display.width, height)
+    self.downSection:setVelocity(-100, 0)
+    self.downSection:setCollisionType(CollisionType.pipe)
+
+    self.upSection = self.world:createBoxBody(1, display.width / 8, height)
+    self.upSection:setPosition(display.width, 500)
+    self.upSection:applyForce(0, 300, 0, 0)
+    self.upSection:setVelocity(-100, 0)
+    self.upSection:setCollisionType(CollisionType.pipe)
 end
 
-function Pipe:createUpBox()
-    local random = math.random(200, 600)
-    local width = display.width / 6
-    local offset = 100
-    local groundHeight = 140
-    local upBoxHeight = random - offset - groundHeight
-    self.upBox = self.world:createBoxBody(1, width, upBoxHeight)
-    self.upBox:setCollisionType(CollisionType.hose)
-    self.upBox:setPosition(ccp(display.width, groundHeight + 0.5 * upBoxHeight))
-    self.upBox:applyForce(0, 300, 0, 0)
-    self.upBox:setVelocity(-30, 0)
-end
 
 return Pipe
