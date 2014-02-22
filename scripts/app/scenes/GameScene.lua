@@ -29,6 +29,8 @@ function GameScene:ctor()
 
     self:run()
 
+    self:createHose()
+
 end
 
 
@@ -39,6 +41,13 @@ function GameScene:run()
             self.onCollisionBetweenGroundAndBird
         ),
         CollisionType.bird, CollisionType.ground
+    )
+    self.world:addCollisionScriptListener(
+        handler(
+            self,
+            self.onCollisionBetweenBirdAndHose
+        ),
+        CollisionType.bird, CollisionType.hose
     )
 
     begin = 0
@@ -101,6 +110,7 @@ function GameScene:onCollisionBetweenGroundAndBird(eventType, event)
 end
 
 function GameScene:onCollisionBetweenBirdAndHose(eventType, event)
+    if eventType == 'begin' then self:onDead() end
 end
 
 function GameScene:collideWithHose()
@@ -138,9 +148,9 @@ end
 function GameScene:loadGround()
     self.ground = display.newSprite(GROUND_FILENAME, display.cx, display.bottom)
     local size = self.ground:getContentSize()
-    self.groundBox = self.world:createBoxBody(1, display.width, size.height)
+    self.groundBox = self.world:createBoxBody(0, display.width, size.height)
     self.groundBox:setPosition(ccp(display.cx, 0))
-    self.groundBox:applyForce(0, 300, 0, 0)
+    --self.groundBox:applyForce(0, 300, 0, 0)
     self.groundBox:setCollisionType(2)
     self:addChild(self.ground, ZORDER.ground)
     self:moveGround()
@@ -195,9 +205,8 @@ function GameScene:loadBird()
     self.batch:addChild(self.bird, ZORDER.bird)
 end
 
-function GameScene:createHose(offset)
-    local hose = Hose.new(offset)
-    hose:retain()
+function GameScene:createHose()
+    local hose = Hose.new(self.world)
     self.batch:addChild(hose.up, ZORDER.hose)
     self.batch:addChild(hose.down, ZORDER.hose)
     self.hoses[#self.hoses + 1] = hose
