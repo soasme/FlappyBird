@@ -183,7 +183,7 @@ function GameScene:loadBird()
     self.birdBox:setElasticity(0)
     self.birdBox:setPosition(display.width / 3, display.height / 2)
     self.bird = Bird.new(self.birdBox)
-    self.batch:addChild(self.bird, ZORDER.bird)
+    self.batch:addChild(self.bird.sprite, ZORDER.bird)
 end
 
 function GameScene:createPipeKiller()

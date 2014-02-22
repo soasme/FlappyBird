@@ -33,10 +33,10 @@ end
 
 function MenuScene:loadBird()
     self.bird = Bird.new()
-    self.bird:setPosition(display.width / 2, display.height / 2)
+    self.bird.sprite:setPosition(display.width / 2, display.height / 2)
     self.bird:flap()
     self.bird:flyUpAndDown()
-    self.batch:addChild(self.bird)
+    self.batch:addChild(self.bird.sprite)
 end
 
 function MenuScene:loadStartButton()

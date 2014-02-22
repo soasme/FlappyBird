@@ -1,29 +1,29 @@
 local Bird = class('Bird', function()
-    local sprite = display.newSprite('#bird1.png')
-    return sprite
+    return {}
 end)
 
 function Bird:ctor(box)
-    self:setScaleX(0.618)
-    self:setScaleY(0.618)
+    self.sprite = display.newSprite('#bird1.png')
+    self.sprite:setScaleX(0.618)
+    self.sprite:setScaleY(0.618)
     self:flap()
-    self:setPosition(display.width / 3, display.height / 2)
+    self.sprite:setPosition(display.width / 3, display.height / 2)
     self.box = box
     if box then
         box:setPosition(display.width / 3, display.height / 2)
         box:setCollisionType(CollisionType.bird)
-        box:bind(self)
+        box:bind(self.sprite)
     end
 end
 function Bird:flap()
     self.frames = display.newFrames("bird%d.png", 1, 3, true)
     self.animation = display.newAnimation(self.frames, 0.3 / 3)
     display.setAnimationCache("flap", self.animation)
-    self:playAnimationForever(self.animation)
+    self.sprite:playAnimationForever(self.animation)
 end
 
 function Bird:flyUpAndDown()
-    self:runAction(
+    self.sprite:runAction(
         CCRepeatForever:create(
             transition.sequence({
                 CCMoveBy:create(0.3, ccp(0, 10)),
@@ -40,7 +40,7 @@ function Bird:isOnTheFloor()
 end
 
 function Bird:fly()
-    local y = self:getPositionY()
+    local y = self.sprite:getPositionY()
     if y > display.height then
         return
     end
