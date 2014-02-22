@@ -1,5 +1,7 @@
 local Bird = import('..views.bird')
 local Hose = import('..views.hose')
+local Pipe = import('..views.pipe')
+local PipeKiller = import('..views.PipeKiller')
 local State = {
     ready=1,
     flying=2,
@@ -32,6 +34,8 @@ function GameScene:ctor()
     self:run()
 
     --self:createHose()
+    self:createPipeKiller()
+    self:createPipe()
 
 end
 
@@ -50,6 +54,13 @@ function GameScene:run()
             self.onCollisionBetweenBirdAndHose
         ),
         CollisionType.bird, CollisionType.hose
+    )
+    self.world:addCollisionScriptListener(
+        handler(
+            self,
+            self.onCollisionBetweenPipeAndKiller
+        ),
+        CollisionType.pipe, CollisionType.pipeKiller
     )
 
     begin = 0
@@ -103,6 +114,13 @@ end
 
 function GameScene:onCollisionBetweenBirdAndHose(eventType, event)
     if eventType == 'begin' then self:onDead() end
+end
+
+function GameScene:onCollisionBetweenPipeAndKiller(eventType, event)
+    if eventType == 'begin' then
+        local pipe = event:getBody1()
+        self.world:removeBody(pipe)
+    end
 end
 
 function GameScene:collideWithHose()
@@ -195,6 +213,15 @@ function GameScene:loadBird()
     self.birdBox:setPosition(display.width / 3, display.height / 2)
     self.bird = Bird.new(self.birdBox)
     self.batch:addChild(self.bird, ZORDER.bird)
+end
+
+function GameScene:createPipeKiller()
+    self.killer = PipeKiller.new(self.world)
+end
+
+function GameScene:createPipe()
+    local pipe = Pipe.new(self.world)
+    return pipe
 end
 
 function GameScene:createHose()
