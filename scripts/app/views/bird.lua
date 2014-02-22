@@ -44,7 +44,14 @@ function Bird:fly()
     if y > display.height then
         return
     end
+    self.sprite:runAction(CCRotateTo:create(0, -30))
     self.box:setVelocity(0, 260)
+end
+
+function Bird:fall()
+    local height = self.sprite:getPositionY() - 140
+    local time = height / display.height
+    self.sprite:runAction(CCMoveBy:create(time, ccp(0, -height)))
 end
 
 return Bird

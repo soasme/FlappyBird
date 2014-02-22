@@ -4,7 +4,8 @@ local PipeKiller = import('..views.PipeKiller')
 local State = {
     ready=1,
     flying=2,
-    dead=3
+    frozen=3,
+    dead=4,
 }
 local scheduler = CCDirector:sharedDirector():getScheduler()
 local GameScene = class('GameScene', function()
@@ -94,11 +95,11 @@ function GameScene:run()
 end
 
 function GameScene:onCollisionBetweenGroundAndBird(eventType, event)
-    if eventType == 'begin' then self:onDead() end
+    if eventType == 'begin' then self:onFrozen() end
 end
 
 function GameScene:onCollisionBetweenBirdAndPipe(eventType, event)
-    if eventType == 'begin' then self:onDead() end
+    if eventType == 'begin' then self:onFrozen() end
 end
 
 function GameScene:onCollisionBetweenBirdAndScore(eventType, event)
@@ -250,8 +251,15 @@ function GameScene:loadGameOver()
     gameover:runAction(transition.newEasing(CCFadeIn:create(0.3), 'BOUNCEIN'))
 end
 
-function GameScene:onDead()
+function GameScene:onFrozen()
     self.world:stop()
+    self.state = State.frozen
+    self.ground:stopAllActions()
+    self:onDead()
+    self.bird:fall()
+end
+
+function GameScene:onDead()
     self.state = State.dead
     self:loadGameOver()
     self:loadNextLoopButton()
