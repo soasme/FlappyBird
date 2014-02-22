@@ -37,3 +37,5 @@ CollisionType = {
     pipe = 3, -- refactor
     pipeKiller = 4,
 }
+
+GRAVITY = -450

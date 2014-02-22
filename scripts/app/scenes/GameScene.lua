@@ -17,7 +17,7 @@ function GameScene:ctor()
     self.score = 0
     self.state = State.ready
     self.hoses = {}
-    self.world = CCPhysicsWorld:create(0, -300)
+    self.world = CCPhysicsWorld:create(0, GRAVITY)
     self:addChild(self.world)
     self.worldDebug = self.world:createDebugNode()
     self:addChild(self.worldDebug)
@@ -65,7 +65,7 @@ function GameScene:run()
         if self.state == State.flying then
             self:createPipe()
         end
-    end, 1.8, false)
+    end, 1.4, false)
 
     begin = 0
 
