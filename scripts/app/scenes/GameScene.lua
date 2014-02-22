@@ -20,6 +20,7 @@ function GameScene:ctor()
     self:addChild(self.world)
     if DEBUG ~= 1 then
         self:loadBackground()
+    else
         self.worldDebug = self.world:createDebugNode()
         self:addChild(self.worldDebug)
     end
@@ -191,8 +192,8 @@ end
 
 function GameScene:createPipe()
     local pipe = Pipe.new(self.world)
-    self.batch:addChild(pipe.downSectionSprite)
     self.batch:addChild(pipe.upSectionSprite)
+    self.batch:addChild(pipe.downSectionSprite)
     return pipe
 end
 
